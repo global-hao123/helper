@@ -51,4 +51,4 @@ var helper = {
     }
 };
 
-exports = helper;
+module.exports = helper;
