@@ -48,7 +48,21 @@ var helper = {
             var method = window.execScript ? "execScript" : "eval";
             window[method](code);
         }
-    }
+    },
+    /**
+     * 地址栏url中如果带了指定的参数（如uid），则对应跳转链接的末尾也要带上这个参数（主要用在通过活动客户端进入首页后
+     * 通过其他入口进入活动页时能保留首页的uid）
+     * @param  {String} url        跳转链接url
+     * @param  {String} queryParam 要带上的指定参数
+     * @return {String}            拼接好的url
+     */
+    appendQueryToUrl: function(url, queryParam) {
+		// 有passQueryParam并且地址栏url带了queryParam指定的参数
+		if(queryParam && (paramVal = this.getQuery(location.href)[queryParam])){
+			url += (url.indexOf("?") != -1?"&":"?") + queryParam + "=" + encodeURIComponent(paramVal);
+		}
+		return url;
+	}
 };
 
 module.exports = helper;
